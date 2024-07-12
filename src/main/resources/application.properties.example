@@ -1,0 +1,7 @@
+#Hbernate properties
+database_name     =devhub_web_app
+database_host     =103.27.236.132
+database_posts    =3306
+database_username =root
+database_password =khongbiet
+	
