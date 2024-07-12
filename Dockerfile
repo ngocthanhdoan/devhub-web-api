@@ -11,9 +11,3 @@ FROM eclipse-temurin:21
 WORKDIR /app
 COPY  --from=build /app/target/devhub-web-api-1.0-SNAPSHOT.jar devhub-web-api.jar
 CMD ["java", "-jar", "devhub-web-api.jar"]
-
-# FROM adoptopenjdk:17-jre-hotspot
-# WORKDIR /app
-# COPY --from=build /app/target/devhub-web-api-1.0-SNAPSHOT.jar devhub-web-api.jar
-# EXPOSE 8080
-# CMD ["java", "-jar", "devhub-web-api.jar"]
