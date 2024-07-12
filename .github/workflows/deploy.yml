@@ -44,4 +44,4 @@ jobs:
           docker pull ongdevtre/devhub-web-api:latest
           docker stop devhub-web-api || true
           docker rm devhub-web-api || true
-          docker run -d --name devhub-web-api -p 8080:8888 ongdevtre/devhub-web-api:latest
+          docker run -d --name devhub-web-api -p 8080:8080 ongdevtre/devhub-web-api:latest
