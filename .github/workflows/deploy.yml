@@ -32,7 +32,7 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker buildx build --push --tag your-dockerhub-username/your-java-app:latest .
+        docker buildx build --push --tag ongdevtre/devhub-web-api:latest .
         
     - name: Deploy to Ubuntu Server
       uses: appleboy/ssh-action@master
@@ -41,7 +41,7 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          docker pull your-dockerhub-username/your-java-app:latest
-          docker stop your-java-app || true
-          docker rm your-java-app || true
-          docker run -d --name your-java-app -p 8080:8080 your-dockerhub-username/your-java-app:latest
+          docker pull ongdevtre/devhub-web-api:latest
+          docker stop devhub-web-api || true
+          docker rm devhub-web-api || true
+          docker run -d --name devhub-web-api -p 8080:8080 ongdevtre/devhub-web-api:latest
