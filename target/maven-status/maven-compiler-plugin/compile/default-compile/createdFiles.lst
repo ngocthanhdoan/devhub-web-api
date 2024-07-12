@@ -28,7 +28,6 @@ com\devhub\io\vn\api\ApiController.class
 com\devhub\io\vn\plugins\MapHelper.class
 com\j4fun\plugins\ref.class
 com\devhub\io\vn\plugins\VoTooL$1.class
-com\j4fun\api\TrelloApiExample.class
 com\j4fun\magic\test.class
 com\j4fun\security\FILE_ASE.class
 com\devhub\io\vn\plugins\DataSet.class
