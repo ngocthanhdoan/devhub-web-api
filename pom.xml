@@ -30,6 +30,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>5.6.3.Final</version> <!-- Thay phiên bản phù hợp -->
+</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -91,13 +96,12 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.14.0</version>
 		</dependency>
-
-		<!--  HERE IS MYLIST =))))-->
-		<!-- <dependency>
-			<groupId>com.devhub.mv</groupId>
-			<artifactId>devhub-maven</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency> -->
+<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
+<dependency>
+    <groupId>org.flywaydb</groupId>
+    <artifactId>flyway-core</artifactId>
+    <version>10.15.2</version>
+</dependency>
 	</dependencies>
 
 

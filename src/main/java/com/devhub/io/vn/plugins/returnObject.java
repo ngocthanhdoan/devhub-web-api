@@ -1,166 +1,126 @@
 package com.devhub.io.vn.plugins;
 
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
-
 /**
  * @author Ngoc Thanh Doan
  *
  */
 public class returnObject {
-	private Exception exception;
-	private int returnCode;
-	private Object returnData;
-	private String msgDescs;
-	private HttpServletResponse response;
-	private HttpServletRequest request;
-	private VoTooL vo$tool;
-	private String Method;
-    private static final String encode="UTF-8";
-	public HttpServletRequest getRequest() {
-		return request;
-	}
 
-	private Map ipInfo() {
-		Map map = new HashMap();
-		map.put("XRealIP", request.getHeader("X-Real-IP"));
-		map.put("XFORWARDEDFOR", request.getHeader("X-FORWARDED-FOR"));
-		return map;
-	}
+    private int returnCode;
+    private Object returnData;
+    private String msgDescs;
+    private String status;
+    private String detail;
+    private int httpStatusCode;
 
-	public void setRequest(HttpServletRequest request) {
-		this.request = request;
-		try {
-			this.request.setCharacterEncoding(encode);
-		} catch (UnsupportedEncodingException e) {
-			System.err.println("UnsupportedEncodingException: " + e.getMessage());
-		}
+    public returnObject() {
+        this.returnCode = 0;
+        this.status = "success";
+        this.detail = "";
+        this.httpStatusCode = 200; // HTTP 200 OK by default
+    }
 
-	}
+    /**
+     * @return int return the returnCode
+     */
+    public int getReturnCode() {
+        return returnCode;
+    }
 
-	public String getMethod() {
-		if (request != null) {
-			this.Method = request.getMethod();
-		}
-		return Method;
-	}
+    /**
+     * @param returnCode the returnCode to set
+     */
+    public void setReturnCode(int returnCode) {
+        this.returnCode = returnCode;
+        updateStatus();
+    }
 
-	public void setMethod(String method) {
-		Method = method;
-	}
+    /**
+     * @return Object return the returnData
+     */
+    public Object getReturnData() {
+        return returnData;
+    }
 
-	private static Map<String, String> header;
-	static {
-		header = new HashMap<String, String>();
-		header.put("Access-Control-Allow-Origin", "*");
-	}
+    /**
+     * @param returnData the returnData to set
+     */
+    public void setReturnData(Object returnData) {
+        this.returnData = returnData;
+    }
 
-	public HttpServletResponse getResponse() {
-		return response;
-	}
+    /**
+     * @return String return the msgDescs
+     */
+    public String getMsgDescs() {
+        return msgDescs;
+    }
 
-	public void setMapHeader(Map map) {
-		this.header = map;
-	}
+    /**
+     * @param msgDescs the msgDescs to set
+     */
+    public void setMsgDescs(String msgDescs) {
+        this.msgDescs = msgDescs;
+    }
 
-	public void setResponse(HttpServletResponse response) {
-		this.response = response;
-		this.response.setCharacterEncoding(encode);
-		this.response.setContentType("application/json; charset=" + encode);
-		ArrayList myKeyList = new ArrayList(header.keySet());
-		for (int i = 0; i < myKeyList.size(); i++) {
-			String key = (String) myKeyList.get(i);
-			String value = (String) header.get(myKeyList.get(i));
-			this.response.setHeader(key, value);
-		}
-	}
+    /**
+     * @return String return the status
+     */
+    public String getStatus() {
+        return status;
+    }
 
-	public returnObject() {
-		this.returnCode = 0;
-		this.msgDescs = "";
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	}
+    /**
+     * @return String return the detail
+     */
+    public String getDetail() {
+        return detail;
+    }
 
-	public Map returnClientMap() {
-		vo$tool = new VoTooL();
-		returnObject returnObj = new returnObject();
-		if (this.exception != null) {
-			returnObj.setException(this.exception);
-		}
-		returnObj.setMapHeader(header);
-		returnObj.setMsgDescs(this.msgDescs);
-		returnObj.setReturnCode(this.returnCode);
-		returnObj.setReturnData(this.returnData);
-		returnObj.setMethod(this.getMethod());
-		return vo$tool.objToMap(returnObj);
-	}
+    /**
+     * @param detail the detail to set
+     */
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
 
-	public HttpServletResponse returnResp() {
-		try {
-			this.response.getWriter().append(returnClient());
-		} catch (IOException e) {
-			System.out.println("hóa hư không!!!");
-		}
+    /**
+     * @return int return the httpStatusCode
+     */
+    public int getHttpStatusCode() {
+        return httpStatusCode;
+    }
 
-		return response;
-	}
+    /**
+     * @param httpStatusCode the httpStatusCode to set
+     */
+    public void setHttpStatusCode(int httpStatusCode) {
+        this.httpStatusCode = httpStatusCode;
+    }
 
-	public String returnClient() {
-		vo$tool = new VoTooL();
-		returnObject returnObj = new returnObject();
-		if (this.exception != null) {
-			returnObj.setException(this.exception);
-		}
-		returnObj.setMapHeader(header);
-		returnObj.setMsgDescs(this.msgDescs);
-		returnObj.setReturnCode(this.returnCode);
-		returnObj.setReturnData(this.returnData);
-		returnObj.setMethod(this.getMethod());
-		return vo$tool.getJSONString(returnObj);
-	}
-
-	private Exception getException() {
-		return exception;
-	}
-
-	public void setException(Exception exception) {
-		this.exception = exception;
-		this.returnCode = -1;
-		this.msgDescs = "API ERR DESC ["+exception.getCause().getMessage()+"] ===> PLEASE CHECK";
-	
-	
-	}
-
-	public int getReturnCode() {
-		return returnCode;
-	}
-
-	public void setReturnCode(int returnCode) {
-		this.returnCode = returnCode;
-	}
-
-	public Object getReturnData() {
-		return returnData;
-	}
-
-	public void setReturnData(Object returnData) {
-		this.returnData = returnData;
-	}
-
-	public String getMsgDescs() {
-		return msgDescs;
-	}
-
-	public void setMsgDescs(String msgDescs) {
-		this.msgDescs = msgDescs;
-	}
-
+    /**
+     * Update status based on return code
+     */
+    private void updateStatus() {
+        if (this.returnCode == 0) {
+            this.status = "success";
+            this.detail = "Operation completed successfully";
+            this.httpStatusCode = 200; // HTTP 200 OK
+        } else if (this.returnCode > 0) {
+            this.status = "warning";
+            this.detail = "Operation completed with warnings";
+            this.httpStatusCode = 400; // HTTP 400 Bad Request
+        } else {
+            this.status = "error";
+            this.detail = "Operation failed";
+            this.httpStatusCode = 500; // HTTP 500 Internal Server Error
+        }
+    }
 }
