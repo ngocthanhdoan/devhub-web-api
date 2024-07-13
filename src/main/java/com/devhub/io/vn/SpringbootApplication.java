@@ -8,9 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 import com.devhub.io.vn.plugins.CodeMap;
-import com.devhub.io.vn.plugins.DataSet;
+import com.devhub.io.vn.plugins.DataSet; 
 
 //import com.devhub.mv.jdbc.DataSet;
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
@@ -54,7 +53,6 @@ public class SpringbootApplication implements WebMvcConfigurer {
 		ds.setDB_USERNAME(database_username);
 		ds.setDB_PASSWORD(database_password);
 		try {
-
 			CodeMap.reNewData(ds);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
